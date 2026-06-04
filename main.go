@@ -20,7 +20,7 @@ func main() {
 
 	html, err := getHTML(rawURL)
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "request failed: %w", err)
+		fmt.Fprintf(os.Stderr, "request failed: %v", err)
 		os.Exit(1)
 	}
 
