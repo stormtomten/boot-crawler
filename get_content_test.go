@@ -1,6 +1,8 @@
 package main
 
-import "testing"
+import (
+	"testing"
+)
 
 func TestGetHeadingFromHTMLBasic(t *testing.T) {
 	tests := []struct {
@@ -95,3 +97,5 @@ func TestGetFirstParagraphFromHTML(t *testing.T) {
 		})
 	}
 }
+
+
