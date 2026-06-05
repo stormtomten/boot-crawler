@@ -54,7 +54,7 @@ func TestGetURLsFromHTMLAbsolute(t *testing.T) {
 			expected:  []string{"https://some-other.place"},
 		},
 		{
-			name:     "Empty atribute",
+			name:     "Empty attribute",
 			inputURL: "https://crawler-test.com",
 			inputBody: `<html><body>
 			<a><span>No Source</span></a>

@@ -9,23 +9,24 @@ import (
 func normalizeURL(str string) (string, error) {
 	u, err := url.Parse(str)
 	if err != nil {
-		return "", fmt.Errorf("Invalid url: %s: %s", str, err.Error())
+		return "", fmt.Errorf("invalid url: %s: %s", str, err.Error())
 	}
 
 	switch u.Scheme {
 	case "http":
 		if u.Port() == "80" {
-			u.Host = strings.TrimSuffix(u.Host, ":80")
+			u.Host = u.Hostname()
 		}
 
 	case "https":
 		if u.Port() == "443" {
-			u.Host = strings.TrimSuffix(u.Host, ":443")
+			u.Host = u.Hostname()
 		}
 	}
 
-	u.Host = strings.TrimPrefix(u.Host, "www.")
+	hostName := strings.TrimPrefix(u.Host, "www.")
+	path := strings.TrimSuffix(u.Path, "/")
 
-	norm := strings.ToLower(fmt.Sprintf("%s%s", u.Host, u.Path))
+	norm := strings.ToLower(fmt.Sprintf("%s%s", hostName, path))
 	return norm, nil
 }

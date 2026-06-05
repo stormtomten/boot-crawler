@@ -68,6 +68,16 @@ func TestNormalizeURL(t *testing.T) {
 			inputURL: "https://blog.boot.dev:443/path",
 			expected: "blog.boot.dev/path",
 		},
+		{
+			name:     "Trailing slash on path",
+			inputURL: "https://blog.boot.dev:443/path/",
+			expected: "blog.boot.dev/path",
+		},
+		{
+			name:     "Trailing slash on domain",
+			inputURL: "https://blog.boot.dev/",
+			expected: "blog.boot.dev",
+		},
 	}
 
 	for i, tc := range tests {

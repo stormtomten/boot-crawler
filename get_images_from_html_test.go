@@ -38,7 +38,7 @@ func TestGetImagesFromHTML(t *testing.T) {
 			expected: []string{"https://place-cat.org/a-cat.png", "https://place-dog.org/a-dog.png"},
 		},
 		{
-			name:      "Empty attribure",
+			name:      "Empty attribute",
 			inputURL:  "https://crawler-test.com",
 			inputBody: `<html><body><img alt="No source here!"><img src="/valid.png"></body></html>`,
 			expected:  []string{"https://crawler-test.com/valid.png"},
