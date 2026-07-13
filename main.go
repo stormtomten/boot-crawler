@@ -16,16 +16,20 @@ func main() {
 
 	rawURL := os.Args[1]
 
+	const maxConcurrency = 3
+	cfg, err := configure(rawURL, maxConcurrency)
+	if err != nil {
+		fmt.Printf("Error - configure: %v", err)
+		os.Exit(1)
+	}
+
 	fmt.Printf("starting crawl of: %s...\n", rawURL)
 
-	pages := make(map[string]int)
-	crawlPage(rawURL, rawURL, pages)
+	cfg.wg.Add(1)
+	go cfg.crawlPage(rawURL)
+	cfg.wg.Wait()
 
-	for url, sightings := range pages {
-		if sightings == 1 {
-			fmt.Printf("URL: %s sighted %d time\n", url, sightings)
-			continue
-		}
-		fmt.Printf("URL: %s sighted %d times\n", url, sightings)
+	for url := range cfg.pages {
+		fmt.Printf("URL: %s sighted\n", url)
 	}
 }
