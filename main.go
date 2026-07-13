@@ -18,11 +18,14 @@ func main() {
 
 	fmt.Printf("starting crawl of: %s...\n", rawURL)
 
-	html, err := getHTML(rawURL)
-	if err != nil {
-		fmt.Fprintf(os.Stderr, "request failed: %v", err)
-		os.Exit(1)
-	}
+	pages := make(map[string]int)
+	crawlPage(rawURL, rawURL, pages)
 
-	fmt.Println(html)
+	for url, sightings := range pages {
+		if sightings == 1 {
+			fmt.Printf("URL: %s sighted %d time\n", url, sightings)
+			continue
+		}
+		fmt.Printf("URL: %s sighted %d times\n", url, sightings)
+	}
 }
